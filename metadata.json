@@ -1,0 +1,8 @@
+{
+  "name": "Mounika Selvaraj Portfolio",
+  "description": "Interactive and modern portfolio website of Mounika Selvaraj, a Computer Science and Business Systems student.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

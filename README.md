@@ -1,6 +1,10 @@
 # Mounika Selvaraj - Personal Portfolio & Interactive Resume 🚀
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://mounika-selvaraj-portfolio.vercel.app/)
+
 Welcome to the repository of my interactive personal portfolio website! This modern, highly responsive web application serves as my digital resume, showcasing my professional details, educational history, software development skills, and technical projects.
+
+Live Site: [https://mounika-selvaraj-portfolio.vercel.app/](https://mounika-selvaraj-portfolio.vercel.app/)
 
 Built with a blend of **React, TypeScript, Tailwind CSS**, and structured to run seamlessly on both development environments and production, this portfolio highlights my journey as a Computer Science & Business Systems student at **V.S.B. Engineering College**.
 
@@ -42,66 +46,3 @@ Make sure you have [Node.js](https://nodejs.org/) installed (version 18 or above
 ```bash
 git clone https://github.com/Mounika-420/Mounika-Selvaraj-Portfolio.git
 cd Mounika-Selvaraj-Portfolio
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Run the Development Server
-```bash
-npm run dev
-```
-Your application will be live at `http://localhost:3000`!
-
-### 4. Build for Production
-To generate a production-ready bundle and compile the high-performance backend:
-```bash
-npm run build
-```
-
----
-
-## 📁 Project Directory Structure
-
-```text
-├── src/
-│   ├── assets/         # Dynamic images and branding icons
-│   ├── components/     # Reusable UI tab cards and modular components
-│   │   ├── ContactTab.tsx
-│   │   ├── CredentialsTab.tsx
-│   │   ├── EducationExperienceTab.tsx
-│   │   ├── OverviewTab.tsx
-│   │   ├── PrintableResumeModal.tsx
-│   │   ├── ProfileCard.tsx
-│   │   ├── ProjectsTab.tsx
-│   │   └── SkillsTab.tsx
-│   ├── resumeData.ts   # Main data store for simple configuration
-│   ├── types.ts        # TypeScript interface declarations
-│   ├── main.tsx        # Application entry point
-│   ├── index.css       # Tailwind CSS configurations & custom font imports
-│   └── App.tsx         # Primary component with routing and tab logic
-├── index.html          # HTML Entry
-├── server.ts           # CJS & ESM compliant web server
-├── package.json        # Build scripts and package dependencies
-└── tsconfig.json       # TypeScript configuration parameters
-```
-
----
-
-## 👩‍💻 About Me
-
-I am a motivated Computer Science and Business Systems student seeking to apply programming and problem-solving skills, and gain hands-on industry experience in software development.
-
-- **Email**: mounikaselvarajp@gmail.com
-- **Phone**: +91 9360058155
-- **Location**: Mallur, Salem, Tamil Nadu, India
-- **LeetCode**: [mounikaselvarajp](https://leetcode.com/mounikaselvarajp)
-- **LinkedIn**: [Mounika Selvaraj](https://linkedin.com/in/mounikaselvaraj)
-- **GitHub**: [Mounika-420](https://github.com/mounika-420)
-- **Salesforce**: [Trailblazer](https://trailblazer.me/id/mounikaselvaraj)
-
----
-
-Developed with ❤️ by [Mounika Selvaraj](https://github.com/Mounika-420). Feel free to star ⭐ this repository if you find it helpful!

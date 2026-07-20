@@ -4,21 +4,41 @@
  */
 
 import { motion } from "motion/react";
-import { certificationsList, achievementsList } from "../resumeData";
-import { Award, Trophy, ShieldCheck, CheckCircle, Activity, Medal } from "lucide-react";
+import { skillCategories } from "../resumeData";
+import { CheckCircle2, Cpu, Database, Layout, Terminal, Code2, Users } from "lucide-react";
 
-export default function CredentialsTab() {
+export default function SkillsTab() {
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100 } }
+    show: { y: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 110 } }
+  };
+
+  // Helper to resolve icon categories
+  const getCategoryIcon = (id: string) => {
+    switch (id) {
+      case "skill-lang":
+        return <Terminal className="w-4 h-4 text-emerald-400" />;
+      case "skill-back":
+        return <Cpu className="w-4 h-4 text-indigo-400" />;
+      case "skill-front":
+        return <Layout className="w-4 h-4 text-amber-400" />;
+      case "skill-db":
+        return <Database className="w-4 h-4 text-purple-400" />;
+      case "skill-core":
+        return <Code2 className="w-4 h-4 text-pink-400" />;
+      case "skill-soft":
+        return <Users className="w-4 h-4 text-sky-400" />;
+      default:
+        return <CheckCircle2 className="w-4 h-4 text-slate-400" />;
+    }
   };
 
   return (
@@ -26,101 +46,75 @@ export default function CredentialsTab() {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="grid grid-cols-1 md:grid-cols-2 gap-8"
+      className="space-y-6"
     >
-      {/* Certifications Box */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-          <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl">
-            <Award className="w-5 h-5" />
-          </div>
-          <h2 className="font-display text-lg font-bold text-white tracking-tight">
-            Professional Certifications
-          </h2>
+      {/* Tab Header */}
+      <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl">
+          <Code2 className="w-5 h-5" />
         </div>
-
-        <div className="space-y-4">
-          {certificationsList.map((cert) => (
-            <motion.div
-              key={cert.id}
-              variants={itemVariants}
-              className="bg-slate-900/40 hover:bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/60 rounded-2xl p-4 flex items-center gap-4 transition-all group"
-            >
-              <div className="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl border border-indigo-500/10 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <span className="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider block font-mono">
-                  {cert.issuer}
-                </span>
-                <h3 className="font-display text-sm font-bold text-white truncate leading-snug">
-                  {cert.title}
-                </h3>
-                {cert.date && (
-                  <span className="text-[10px] text-slate-400 font-mono mt-0.5 block">
-                    Issued: {cert.date}
-                  </span>
-                )}
-              </div>
-              <div className="text-emerald-400 text-xs flex items-center gap-1 font-mono font-bold bg-emerald-500/5 px-2 py-0.5 border border-emerald-500/10 rounded-md select-none shrink-0">
-                <CheckCircle className="w-3 h-3" />
-                <span>Verified</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <h2 className="font-display text-lg font-bold text-white tracking-tight">
+          Skills Ecosystem & Expertise
+        </h2>
       </div>
 
-      {/* Achievements Box */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-          <div className="p-2 bg-amber-500/10 text-amber-400 rounded-xl">
-            <Trophy className="w-5 h-5" />
-          </div>
-          <h2 className="font-display text-lg font-bold text-white tracking-tight">
-            Key Achievements
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          {achievementsList.map((ach) => (
-            <motion.div
-              key={ach.id}
-              variants={itemVariants}
-              className="bg-slate-900/40 hover:bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/60 rounded-2xl p-5 transition-all flex gap-4"
-            >
-              <div className="shrink-0">
-                {ach.category === "Athletics" ? (
-                  <div className="p-3 bg-rose-500/10 text-rose-400 rounded-xl border border-rose-500/10">
-                    <Medal className="w-5 h-5" />
-                  </div>
-                ) : (
-                  <div className="p-3 bg-amber-500/10 text-amber-400 rounded-xl border border-amber-500/10">
-                    <Activity className="w-5 h-5" />
-                  </div>
-                )}
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-start flex-wrap gap-2">
-                  <h3 className="font-display text-sm font-bold text-white leading-tight">
-                    {ach.title}
-                  </h3>
-                  <span className="px-2 py-0.5 bg-slate-950 border border-slate-800 text-slate-400 font-mono text-[9px] rounded-full uppercase">
-                    {ach.category}
-                  </span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {skillCategories.map((category) => (
+          <motion.div
+            key={category.id}
+            variants={itemVariants}
+            className="bg-slate-900/40 hover:bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/50 rounded-2xl p-5 transition-all flex flex-col justify-between"
+          >
+            <div>
+              {/* Category Header */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="p-1.5 bg-slate-950/80 rounded-lg border border-slate-800">
+                  {getCategoryIcon(category.id)}
                 </div>
-                <p className="text-slate-300 text-xs font-light leading-relaxed">
-                  {ach.description}
-                </p>
-                {ach.date && (
-                  <span className="text-[10px] text-slate-400 font-mono block pt-1">
-                    Timeline: {ach.date}
-                  </span>
-                )}
+                <h3 className="font-display text-xs font-bold text-white uppercase tracking-wider">
+                  {category.name}
+                </h3>
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              {/* Skill Bars */}
+              <div className="space-y-4">
+                {category.skills.map((skill) => (
+                  <div key={skill.name} className="space-y-1.5 group">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="text-slate-300 font-light group-hover:text-white transition-colors">
+                        {skill.name}
+                      </span>
+                      <span className="font-mono text-[10px] text-slate-400 font-semibold">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    {/* Progress Bar Container */}
+                    <div className="h-1.5 w-full bg-slate-950 rounded-full overflow-hidden p-[1px] border border-slate-900/60">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${skill.level}%` }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className={`h-full rounded-full bg-gradient-to-r ${
+                          category.id === "skill-lang"
+                            ? "from-emerald-500 to-teal-500"
+                            : category.id === "skill-back"
+                            ? "from-indigo-500 to-purple-500"
+                            : category.id === "skill-front"
+                            ? "from-amber-500 to-orange-500"
+                            : category.id === "skill-db"
+                            ? "from-purple-500 to-pink-500"
+                            : category.id === "skill-core"
+                            ? "from-pink-500 to-rose-500"
+                            : "from-sky-500 to-indigo-500"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );

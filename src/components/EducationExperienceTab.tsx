@@ -18,7 +18,7 @@ export default function EducationExperienceTab() {
 
   const itemVariants = {
     hidden: { y: 25, opacity: 0 },
-    show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 90 } }
+    show: { y: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 90 } }
   };
 
   return (

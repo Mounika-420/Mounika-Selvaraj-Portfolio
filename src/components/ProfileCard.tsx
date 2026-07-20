@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React, { useState, useEffect, useRef } from "react";
 import { personalInfo } from "../resumeData";
-import { Mail, Phone, MapPin, Linkedin, Github, Cloud, Code, Printer, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Cloud, Code, Printer, Send, Camera, RefreshCw } from "lucide-react";
 // @ts-ignore
-import avatarUrl from "../assets/images/developer_avatar_1784300979573.jpg";
+import avatarUrl from "../assets/images/mounika.jpg";
 
 interface ProfileCardProps {
   onOpenPrintModal: () => void;
@@ -14,6 +15,49 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard({ onOpenPrintModal, onSelectTab }: ProfileCardProps) {
+  const [currentAvatar, setCurrentAvatar] = useState<string>(avatarUrl);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("mounika_portfolio_avatar");
+    if (saved) {
+      setCurrentAvatar(saved);
+    }
+  }, []);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 3 * 1024 * 1024) {
+        alert("Please upload an image smaller than 3MB.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        try {
+          localStorage.setItem("mounika_portfolio_avatar", base64String);
+          setCurrentAvatar(base64String);
+        } catch (err) {
+          alert("Image is too large to save. Try a smaller resolution photo!");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const resetAvatar = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    localStorage.removeItem("mounika_portfolio_avatar");
+    setCurrentAvatar(avatarUrl);
+  };
+
+  const hasCustomAvatar = currentAvatar !== avatarUrl;
+
   return (
     <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-3xl p-6 flex flex-col justify-between h-full shadow-2xl relative overflow-hidden group">
       {/* Visual background accents */}
@@ -23,15 +67,46 @@ export default function ProfileCard({ onOpenPrintModal, onSelectTab }: ProfileCa
       <div className="space-y-6">
         {/* Profile Header Image */}
         <div className="flex flex-col items-center text-center">
-          <div className="relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-amber-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative group/avatar cursor-pointer" onClick={triggerUpload} title="ஃபோட்டோவை மாற்ற கிளிக் செய்யவும்">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-amber-500 rounded-2xl blur opacity-30 group-hover/avatar:opacity-80 transition duration-500"></div>
+            
             <img
-              src={avatarUrl}
+              src={currentAvatar}
               alt="Mounika Selvaraj Avatar"
-              className="relative w-36 h-36 object-cover rounded-2xl border border-slate-700 shadow-xl"
+              className="relative w-36 h-36 object-cover rounded-2xl border border-slate-700 shadow-xl transition-all duration-300 group-hover/avatar:brightness-75"
               referrerPolicy="no-referrer"
             />
+            
+            {/* Upload Overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 rounded-2xl opacity-0 group-hover/avatar:opacity-100 transition-opacity duration-300">
+              <Camera className="w-6 h-6 text-amber-400 mb-1" />
+              <span className="text-[10px] text-white font-medium px-2 text-center leading-tight">
+                Upload Photo
+              </span>
+            </div>
+
+            {/* Hidden Input File */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/*"
+              className="hidden"
+            />
           </div>
+
+          {/* Reset button if custom avatar exists */}
+          {hasCustomAvatar && (
+            <button
+              onClick={resetAvatar}
+              className="mt-2 px-2.5 py-1 bg-slate-800/80 hover:bg-slate-700 text-[10px] text-slate-300 hover:text-white rounded-lg border border-slate-750 transition-all flex items-center gap-1 cursor-pointer"
+              title="Reset to default avatar"
+            >
+              <RefreshCw className="w-3 h-3 text-amber-400" />
+              Reset Photo
+            </button>
+          )}
+
           <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-white leading-tight">
             {personalInfo.name}
           </h1>
